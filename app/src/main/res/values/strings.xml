@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">KFMCApp</string>
+    <string name="SignIn">تسجيل الدخول</string>
+    <string name="Email">البريد الإلكتروني</string>
+    <string name="Password">كلمة المرور</string>
+    <string name="SignUp">تسجيل</string>
+    <string name="HaveAccount">لديك حساب من قبل؟</string>
+    <string name="DntHaveAccount"> مستخدم جديد؟</string>
+    <string name="SignInPrompt">قم بتسجيل الدخول</string>
+    <string name="SignUpPrompt">سجل الان</string>
+    <string name="ForgetPassowrd">هل نسيت كلمة المرور؟</string>
 </resources>
