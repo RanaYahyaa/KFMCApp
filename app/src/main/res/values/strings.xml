@@ -9,4 +9,13 @@
     <string name="SignInPrompt">قم بتسجيل الدخول</string>
     <string name="SignUpPrompt">سجل الان</string>
     <string name="ForgetPassowrd">هل نسيت كلمة المرور؟</string>
+    <string name="CreateNewAccount">انشاء حساب جديد</string>
+    <string name="FirstName">الاسم الاول</string>
+    <string name="lastName">الاسم الاخير</string>
+    <string name="Gender">الجنس: </string>
+    <string name="male">ذكر </string>
+    <string name="female">انثى</string>
+    <string name="password">كلمة المرور</string>
+    <string name="passwordConfirmation">تأكيد كلمة المرور</string>
+    <string name="birthday">بيرثداي</string>
 </resources>

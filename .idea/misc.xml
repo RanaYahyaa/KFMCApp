@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Kholoud/KFMC/Training App/KFMCApp/KFMCApp/app/src/main/res/layout/activity_log_in.xml" value="0.1" />
-        <entry key="..\:/Kholoud/KFMC/Training App/KFMCApp/KFMCApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/custom_button.xml" value="0.26927083333333335" />
+        <entry key="app/src/main/res/layout/activity_log_in.xml" value="0.28616184819718554" />
+        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.291998184490847" />
       </map>
     </option>
   </component>
