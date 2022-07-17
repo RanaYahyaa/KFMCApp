@@ -4,21 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/bg1"
     tools:context=".Registration">
- //logo
-    <LinearLayout
+
+    <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left|end"
-        >
-        <ImageView
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/logo" />
-    </LinearLayout>
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo2" />
 
     <LinearLayout
         android:layout_width="match_parent"

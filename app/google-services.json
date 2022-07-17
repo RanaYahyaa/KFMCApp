@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "911999577953",
+    "project_id": "kfmcapp-51f32",
+    "storage_bucket": "kfmcapp-51f32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911999577953:android:c5cc56e34ca1dc197f9f20",
+        "android_client_info": {
+          "package_name": "com.seu.kfmcapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911999577953-3rq7mh2dnnsadd9hk1o1b40kcn74v7rf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc74BC0hz3Dtmj8CZa0vd5rQ6wReul8j0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911999577953-3rq7mh2dnnsadd9hk1o1b40kcn74v7rf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
