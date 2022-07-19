@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,12 +32,12 @@ import java.util.Map;
 
 public class Registration extends AppCompatActivity {
     EditText firstNameedt, lastNameedt, Emailedt, Passwordedt, PasswordConfirmationedt;
-    String firstName, lastName, Email, Password, PasswordConfirmation, userId;
+    String userId;
     Button submitbtn, cancelbtn;
     FirebaseFirestore db;
     FirebaseAuth mAuth;
     RadioButton fradio, mradio;
-    //FirebaseUser user;
+    AlertDialog.Builder builder;
 
     @Override
     public void onStart() {
@@ -55,22 +57,22 @@ public class Registration extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         //getting views
-        firstNameedt= (EditText) findViewById(R.id.firstName);
-        lastNameedt= (EditText) findViewById(R.id.LastName);
-        Emailedt= (EditText) findViewById(R.id.Email);
-        Passwordedt= (EditText) findViewById(R.id.password);
-        PasswordConfirmationedt= (EditText) findViewById(R.id.passwordConfirmation);
-        submitbtn= (Button) findViewById(R.id.submit);
-        cancelbtn= (Button) findViewById(R.id.cancel);
-        fradio= (RadioButton) findViewById(R.id.female);
+        firstNameedt = (EditText) findViewById(R.id.firstName);
+        lastNameedt = (EditText) findViewById(R.id.LastName);
+        Emailedt = (EditText) findViewById(R.id.Email);
+        Passwordedt = (EditText) findViewById(R.id.password);
+        PasswordConfirmationedt = (EditText) findViewById(R.id.passwordConfirmation);
+        submitbtn = (Button) findViewById(R.id.submit);
+        cancelbtn = (Button) findViewById(R.id.cancel);
+        fradio = (RadioButton) findViewById(R.id.female);
         mradio = (RadioButton) findViewById(R.id.male);
-
+        initCancelButtonClick();
 
         submitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String firstName = firstNameedt.getText().toString().trim();
-                String LastName = lastNameedt.getText().toString().trim();
+                String lastName = lastNameedt.getText().toString().trim();
                 String Password = Passwordedt.getText().toString().trim();
                 String PasswordConfirmation = PasswordConfirmationedt.getText().toString().trim();
                 String Email = Emailedt.getText().toString().trim();
@@ -87,12 +89,12 @@ public class Registration extends AppCompatActivity {
                 }
 
                 // check last name is not empty
-                if (TextUtils.isEmpty(LastName)) {
+                if (TextUtils.isEmpty(lastName)) {
                     lastNameedt.setError(getResources().getString(R.string.RequiredFeild));
                     return;
                 }
                 // check last name length
-                if (LastName.length() < 3) {
+                if (lastName.length() < 3) {
                     lastNameedt.setError(getResources().getString(R.string.NameLength));
                     return;
                 }
@@ -114,7 +116,7 @@ public class Registration extends AppCompatActivity {
                     return;
                 }
                 // check password confirmation
-                if (TextUtils.isEmpty(PasswordConfirmation)){
+                if (TextUtils.isEmpty(PasswordConfirmation)) {
                     PasswordConfirmationedt.setError(getResources().getString(R.string.RequiredFeild));
                     return;
                 }
@@ -126,97 +128,101 @@ public class Registration extends AppCompatActivity {
                 }
 
 
+                mAuth.createUserWithEmailAndPassword(Email, Password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-//        mAuth.createUserWithEmailAndPassword(Email, Password)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//
-//                if(task.isSuccessful()) {
-//                    FirebaseUser user = mAuth.getCurrentUser();
-////                    user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Toast.makeText(Registration.this, R.string.VerificationEmail, Toast.LENGTH_LONG).show();
-//                            //move to log in
-//                            Intent intent = new Intent(Registration.this, LogIn.class);
-//                            startActivity(intent);
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.d(TAG, "OnFailure: Email Not Sent");
-//                        }
-//                    });
-
-   /* // Sign in success, update UI with the signed-in user's information
-    Log.d(TAG, "createUserWithEmail:success");
-    user = mAuth.getCurrentUser();
-    user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-        @Override
-        public void onSuccess(Void unused) {
-
-            Toast.makeText(Registration.this, R.string.VerificationEmail, Toast.LENGTH_LONG).show();
-            //move to log in
-            Intent intent = new Intent(Registration.this, LogIn.class);
-            startActivity(intent);
-        }
-    }).addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception e) {
-            Log.d(TAG, "OnFailure: Email Not Sent");
-        }
-    });
-*/
- //   userId = mAuth.getCurrentUser().getUid();
-//}
-    // Create a new user
-    Map<String, Object> t = new HashMap<>();
-    t.put("ID", userId);
-    t.put("firstName", firstName);
-    t.put("lastName", lastName);
-    t.put("Email", Email);
-    t.put("Password", Password);
-    // t.put("Gender", fradio.isChecked());
-    //TODO: add gender
-
-                            // Add a new document
-                            db.collection("Profiles")
-                                    .add(t)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-
-                                            // Log.d(TAG,"OnSuccess: user profile is created for"+userId);
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(Registration.this, R.string.VerificationEmail, Toast.LENGTH_LONG).show();
+                                            //move to log in
+                                            Intent intent = new Intent(Registration.this, LogIn.class);
+                                            startActivity(intent);
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    //  Log.d(TAG,"OnFailure "+ e.toString());
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "OnFailure: Email Not Sent");
+                                        }
+                                    });
+
+                                    userId = mAuth.getCurrentUser().getUid();
                                 }
-                            });
-                        }});
 
-               /* .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Registration.this, R.string.RegisterationError, Toast.LENGTH_LONG).show();
-            }
-        });*/
+                                // Create a new user
+                                Map<String, Object> t = new HashMap<>();
+                                t.put("ID", userId);
+                                t.put("firstName", firstName);
+                                t.put("lastName", lastName);
+                                t.put("Email", Email);
+                                t.put("Password", Password);
+                                t.put("Gender", fradio.isChecked());
+
+                                // Add a new document
+                                db.collection("Profiles")
+                                        .add(t)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+
+                                                // Log.d(TAG,"OnSuccess: user profile is created for"+userId);
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        //  Log.d(TAG,"OnFailure "+ e.toString());
+                                    }
+                                });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Registration.this, R.string.RegisterationError, Toast.LENGTH_LONG).show();
                     }
-            //    });
+                });
+            }
+        });
 
-
-    //} //TODO: radio button
-
-
-
-    public void clear(View view) {
-        firstNameedt.setText("");
-        lastNameedt.setText("");
-        Emailedt.setText("");
-        Passwordedt.setText("");
-        PasswordConfirmationedt.setText("");
-        //TODO: dialog for cancel and intent to lof in page
     }
-}
+
+    private void initCancelButtonClick() {
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+        builder = new AlertDialog.Builder(Registration.this);
+        // Set the message and title
+        builder.setMessage(R.string.deleteConfirm) .setTitle(R.string.deleteConfirmTitle);
+
+        //Setting message manually and performing action on button click
+        builder.setCancelable(false)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // delete fields
+                        firstNameedt.setText("");
+                        lastNameedt.setText("");
+                        Emailedt.setText("");
+                        Passwordedt.setText("");
+                        PasswordConfirmationedt.setText("");
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        alert.show();
+            }
+        });
+
+    }
+    }
+

@@ -24,5 +24,12 @@
     <string name="NotMatch">كلمة المرور غير متطابقة </string>
     <string name="VerificationEmail"> تم إرسال بريد للتحقق، قم بإكمال الخطوات لتفعيل التسجيل </string>
     <string name="RegisterationError"> خطأ، الرجاء التأكد من البيانات المدخلة </string>
-
+    <string name="delete">حذف</string>
+    <string name="deleteConfirm">هل أنت متأكد من حذف جميع الحقول؟</string>
+    <string name="deleteConfirmTitle">تنبيه!</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="cancel">إلغاء</string>
+    <string name="create">انشاء</string>
+    <string name="Register">تسجيل</string>
 </resources>
