@@ -25,6 +25,7 @@
     <string name="VerificationEmail"> تم إرسال بريد للتحقق، قم بإكمال الخطوات لتفعيل التسجيل </string>
     <string name="RegisterationError"> خطأ، الرجاء التأكد من البيانات المدخلة </string>
     <string name="delete">حذف</string>
+    <string name="AlreadyRegistered">البريد الالكتروني مسجل مسبقا</string>
     <string name="deleteConfirm">هل أنت متأكد من حذف جميع الحقول؟</string>
     <string name="deleteConfirmTitle">تنبيه!</string>
     <string name="yes">نعم</string>
@@ -32,4 +33,7 @@
     <string name="cancel">إلغاء</string>
     <string name="create">انشاء</string>
     <string name="Register">تسجيل</string>
+    <string name="EnterEmail"> مطلوب! الرجاء ادخال بريد الكتروني </string>
+    <string name="EnterPassword">مطلوب! الرجاء ادخال كلمة المرور </string>
+    <string name="AuthenticationFailed">خطأ! الرجاء التأكد من صحة البيانات المدخلة </string>
 </resources>

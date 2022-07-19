@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -44,7 +45,7 @@ public class Registration extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             currentUser.reload();
         }
     }
@@ -58,7 +59,7 @@ public class Registration extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         //getting views
         firstNameedt = (EditText) findViewById(R.id.firstName);
-        lastNameedt = (EditText) findViewById(R.id.LastName);
+        lastNameedt = (EditText) findViewById(R.id.lastName);
         Emailedt = (EditText) findViewById(R.id.Email);
         Passwordedt = (EditText) findViewById(R.id.password);
         PasswordConfirmationedt = (EditText) findViewById(R.id.passwordConfirmation);
@@ -115,6 +116,11 @@ public class Registration extends AppCompatActivity {
                     Emailedt.setError(getResources().getString(R.string.RequiredFeild));
                     return;
                 }
+                // check email is not duplicated
+               if(!isNewEmail(Email)){
+                   Emailedt.setError(getResources().getString(R.string.AlreadyRegistered));
+                   return;
+               }
                 // check password confirmation
                 if (TextUtils.isEmpty(PasswordConfirmation)) {
                     PasswordConfirmationedt.setError(getResources().getString(R.string.RequiredFeild));
@@ -188,6 +194,29 @@ public class Registration extends AppCompatActivity {
         });
 
     }
+
+    boolean isNew;
+    private boolean isNewEmail(String email) {
+
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+
+                boolean isNewUser = task.getResult().getSignInMethods().isEmpty();
+
+                if (isNewUser) {
+                    Log.e("TAG", "Is New User!");
+                    isNew =true;
+                } else {
+                    Log.e("TAG", "Is Old User!");
+                    isNew =  false;
+                }
+
+            }
+        });
+return isNew;
+    }
+
 
     private void initCancelButtonClick() {
         cancelbtn.setOnClickListener(new View.OnClickListener() {
