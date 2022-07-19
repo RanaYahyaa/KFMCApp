@@ -18,4 +18,11 @@
     <string name="password">كلمة المرور</string>
     <string name="passwordConfirmation">تأكيد كلمة المرور</string>
     <string name="birthday">بيرثداي</string>
+    <string name="RequiredFeild"> حقل مطلوب!  </string>
+    <string name="PasswordLength">خطأ! كلمة المرور يجب ان لاتقل عن ثمانية أحرف أو أرقام </string>
+    <string name="NameLength">خطأ! الاسم يجب ان لايقل عن ثلاثة أحرف </string>
+    <string name="NotMatch">كلمة المرور غير متطابقة </string>
+    <string name="VerificationEmail"> تم إرسال بريد للتحقق، قم بإكمال الخطوات لتفعيل التسجيل </string>
+    <string name="RegisterationError"> خطأ، الرجاء التأكد من البيانات المدخلة </string>
+
 </resources>
