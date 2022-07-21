@@ -36,4 +36,31 @@
     <string name="EnterEmail"> مطلوب! الرجاء ادخال بريد الكتروني </string>
     <string name="EnterPassword">مطلوب! الرجاء ادخال كلمة المرور </string>
     <string name="AuthenticationFailed">خطأ! الرجاء التأكد من صحة البيانات المدخلة </string>
+    <string name="Success">تم بنجاح</string>
+    <string name="AddedSuccessfully">تمت الإضافة بنجاح</string>
+    <string name="basicInfo">البيانات الأساسية</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="resetPassword">إعادة ضبط كلمة المرور</string>
+    <string name="resetPasswordTitle">أدخل بريدك الالكتروني وسنقوم بإرسال بريد الكتروني لإعادة ضبط كلمة المرور</string>
+    <string name="submit">إرسال</string>
+    <string name="email_fill">البريد الالكتروني</string>
+    <string name="edit_personal_info">تعديل</string>
+    <string name="log_out">تسجيل الخروج</string>
+    <string name="personalInfo">الملف الشخصي</string>
+    <string name="update">تعديل</string>
+    <string name="WelcomeUser">مرحبا %1$s.</string>
+    <string name="Welcome">أهلا بك...</string>
+
+    <string name="menu_home">الرئيسية</string>
+    <string name="menu_logout">تسجيل الخروج</string>
+    <string name="menu_trainingRequest">طلبات التدريب</string>
+    <string name="menu_approvedRequest">الطلبات المقبولة</string>
+
+
+
+    <!--to toggle the open close button
+        of the navigation drawer-->
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="menu_MyTrainingRequest">طلباتي</string>
 </resources>
