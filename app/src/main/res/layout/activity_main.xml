@@ -12,16 +12,30 @@
     tools:ignore="HardcodedText">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="100dp"
             android:gravity="center"
             android:text="@string/Welcome"
+            android:id="@+id/tvJsonItem"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnHit"
+            android:background="@drawable/custom_button"
+            android:backgroundTint="@color/Green"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/menu_applyForTrainingRequest" />
 
     </LinearLayout>
 

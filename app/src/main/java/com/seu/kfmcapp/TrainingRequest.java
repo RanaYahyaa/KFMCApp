@@ -1,28 +1,28 @@
-package com.example.kfmc;
+package com.seu.kfmcapp;
 
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-        import androidx.annotation.NonNull;
-        import androidx.annotation.Nullable;
-        import androidx.appcompat.app.AppCompatActivity;
+import java.util.ArrayList;
 
-        import android.app.ProgressDialog;
-        import android.content.Intent;
-        import android.net.Uri;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.Spinner;
-        import android.widget.Toast;
-        import android.os.Bundle;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class TrainingRequest extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
+
     String[] Unversity = { "جامعة أم القرى",
             "الجامعة الإسلامية",
             "جامعة الإمام محمد بن سعود",
@@ -122,19 +122,41 @@ public class TrainingRequest extends AppCompatActivity implements
             "4/2","4/2.5" , "4/2.75" , "4/3","4/3.5","4/3.75","4/4"
             ,"5/1.5","5/1.75" ,"5/2","5/2.5","5/2.75" , "5/3","5/3.5","5/3.75","5/4","5/4.5","5/4.75","5/5"};
 
-
+    Spinner spin , spinn, spinnn;
+    ProgressDialog pd;
     Button btn;
 
+    ArrayList<Major> majorsArrayList,majors;
+    ArrayList<String> majorsNames;
+    ArrayAdapter majorsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_training_request);
+        spin = (Spinner) findViewById(R.id.unversity);
+        spinnn = (Spinner) findViewById(R.id.spinner3);
+        spinn = (Spinner) findViewById(R.id.majors);
+        //Creating the ArrayAdapter instance having the country list
+        majors = new ArrayList<>();
+        majorsArrayList = new ArrayList<>();
+        majorsNames = new ArrayList<>();
+        majors = getAllMajors();
 
 
-
-        Spinner spin = (Spinner) findViewById(R.id.unversity);
+        spinn.setOnItemSelectedListener(this);
         spin.setOnItemSelectedListener(this);
+        spinnn.setOnItemSelectedListener(this);
+//        pd = new ProgressDialog(MainActivity.this);
+//        pd.setMessage("Please wait");
+//        pd.setCancelable(false);
+//        pd.show();
+//        // creating new array list.
+//        majorsArrayList = new ArrayList<>();
+//        getAllMajors();
+
+
+       // spin.setOnItemSelectedListener(this);
 
         //Creating the ArrayAdapter instance having the country list
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,Unversity);
@@ -144,25 +166,56 @@ public class TrainingRequest extends AppCompatActivity implements
 
 
 
-        Spinner spinn = (Spinner) findViewById(R.id.majors);
-        spinn.setOnItemSelectedListener(this);
-
-        //Creating the ArrayAdapter instance having the country list
-        ArrayAdapter aaa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,Majors);
-        aaa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        spinn.setAdapter(aaa);
-
-
-        Spinner spinnn = (Spinner) findViewById(R.id.spinner3);
-        spinnn.setOnItemSelectedListener(this);
-
         //Creating the ArrayAdapter instance having the country list
         ArrayAdapter aaaa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,GPA);
         aaaa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spinnn.setAdapter(aaaa);
+        majorsAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,majorsNames);
+        majorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinn.setAdapter( majorsAdapter);
+    }
 
+    private ArrayList<Major> getAllMajors() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://90f3-2001-16a2-c081-d45d-e07b-4b1-9ea2-fd28.eu.ngrok.io/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        // below line is to create an instance for our retrofit api class.
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        // on below line we are calling a method to get all the courses from API.
+        Call<ArrayList<Major>> call = retrofitAPI.getAllMajors();
+
+        // on below line we are calling method to enqueue and calling
+        // all the data from array list.
+        call.enqueue(new Callback<ArrayList<Major>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Major>> call, Response<ArrayList<Major>> response) {
+                // inside on response method we are checking
+                // if the response is success or not.
+                if (response.isSuccessful()) {
+
+                    // below line is to add our data from api to our array list.
+                    majorsArrayList = response.body();
+                    majorsAdapter.notifyDataSetChanged();
+                    // below line we are running a loop to add data to our adapter class.
+                    for (int i = 0; i < majorsArrayList.size(); i++) {
+                        majorsNames.add(majorsArrayList.get(i).toString());
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Major>> call, Throwable t) {
+                Toast.makeText(TrainingRequest.this, "Fail to get data", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
+            }
+        });
+        return majorsArrayList;
     }
 
     @Override

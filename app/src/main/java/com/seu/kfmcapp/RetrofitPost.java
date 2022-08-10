@@ -10,7 +10,7 @@ public static Retrofit retrofit;
 public static Retrofit getRetrofitInstance(){
     if (retrofit == null){
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.10.9:1107/")
+                .baseUrl("http://localhost:1107/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
