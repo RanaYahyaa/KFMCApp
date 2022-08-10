@@ -26,8 +26,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class LogIn extends AppCompatActivity {
-    FirebaseFirestore db;
-    FirebaseAuth mAuth;
+//    FirebaseFirestore db;
+//    FirebaseAuth mAuth;
     TextView signUptxt;
     EditText emailtxt, passwordtxt;
     Button logInbtn;
@@ -36,14 +36,14 @@ public class LogIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+//        db = FirebaseFirestore.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
         emailtxt = (EditText) findViewById(R.id.emailTxt);
         passwordtxt = (EditText) findViewById(R.id.passwordTxt);
         logInbtn = (Button) findViewById(R.id.logInbtn);
         setSignUptxt();
 
-    //TODO: verfied email
+    //TODO: authentication
     logInbtn.setOnClickListener(new View.OnClickListener(){
         @Override
         public void onClick (View v){
@@ -57,13 +57,13 @@ public class LogIn extends AppCompatActivity {
             passwordtxt.setError(getResources().getString(R.string.EnterPassword));
             return;
         }
-            mAuth.signInWithEmailAndPassword(email, password)
-                     .addOnCompleteListener(LogIn.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                              //   Sign in success, update UI with the signed-in user's information
-                                FirebaseUser user = mAuth.getCurrentUser();
+//            mAuth.signInWithEmailAndPassword(email, password)
+//                     .addOnCompleteListener(LogIn.this, new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if (task.isSuccessful()) {
+//                              //   Sign in success, update UI with the signed-in user's information
+//                                FirebaseUser user = mAuth.getCurrentUser();
 
                                                         Toast.makeText(LogIn.this, "أهلا بك",
                                                                 Toast.LENGTH_SHORT).show();
@@ -71,15 +71,15 @@ public class LogIn extends AppCompatActivity {
                                                         startActivity(intent);
 
 
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LogIn.this,R.string.AuthenticationFailed ,
-                                        Toast.LENGTH_SHORT).show();
-
-                            }
-                        }
-                    });
+//                            } else {
+//                                // If sign in fails, display a message to the user.
+//                                Log.w(TAG, "signInWithEmail:failure", task.getException());
+//                                Toast.makeText(LogIn.this,R.string.AuthenticationFailed ,
+//                                        Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        }
+//                    });
     }
     });
     }

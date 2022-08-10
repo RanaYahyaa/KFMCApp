@@ -7,9 +7,21 @@
         android:id="@+id/nav_home"
         android:title="@string/menu_home"/>
 
+
     <item
         android:id="@+id/nav_trainingRequest"
-        android:title="@string/menu_TrainingRequest" />
+        android:title="@string/menu_TrainingRequests">
+
+        <menu>
+            <item
+                android:id="@+id/nav_applyForTrainingRequest"
+                android:title="@string/menu_applyForTrainingRequest" />
+            <item
+                android:id="@+id/nav_myTrainingRequestStatus"
+                android:title="@string/menu_myTrainingRequestStatus" />
+        </menu>
+    </item>
+
 
     <item
         android:id="@+id/nav_logout"

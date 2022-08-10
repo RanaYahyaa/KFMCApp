@@ -48,6 +48,7 @@
             android:layout_height="60dp"
             android:layout_marginLeft="12dp"
             android:ems="10"
+            android:text="123123123"
             android:hint="@string/Password"
             android:inputType="textPassword" />
 
