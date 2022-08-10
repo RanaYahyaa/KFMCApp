@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,39 +31,45 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.RandomAccess;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Registration extends AppCompatActivity {
-    EditText firstNameedt, lastNameedt, Emailedt, Passwordedt, PasswordConfirmationedt;
+    EditText firstNameedt, lastNameedt, Emailedt, Passwordedt, PasswordConfirmationedt, phoneedt;
     String userId;
     Button submitbtn, cancelbtn;
-    FirebaseFirestore db;
-    FirebaseAuth mAuth;
+   /* FirebaseFirestore db;
+    FirebaseAuth mAuth;*/
     RadioButton fradio, mradio;
     AlertDialog.Builder builder;
-
-    @Override
-    public void onStart() {
+    String firstName, lastName,Password, phone, Email, PasswordConfirmation;
+  /*   @Override
+   public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             currentUser.reload();
         }
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         //database
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+            /*db = FirebaseFirestore.getInstance();
+            mAuth = FirebaseAuth.getInstance();*/
         //getting views
         firstNameedt = (EditText) findViewById(R.id.firstName);
         lastNameedt = (EditText) findViewById(R.id.lastName);
         Emailedt = (EditText) findViewById(R.id.Email);
         Passwordedt = (EditText) findViewById(R.id.password);
         PasswordConfirmationedt = (EditText) findViewById(R.id.passwordConfirmation);
+        phoneedt = (EditText) findViewById(R.id.phone);
         submitbtn = (Button) findViewById(R.id.submit);
         cancelbtn = (Button) findViewById(R.id.cancel);
         fradio = (RadioButton) findViewById(R.id.female);
@@ -72,11 +79,13 @@ public class Registration extends AppCompatActivity {
         submitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String firstName = firstNameedt.getText().toString().trim();
-                String lastName = lastNameedt.getText().toString().trim();
-                String Password = Passwordedt.getText().toString().trim();
-                String PasswordConfirmation = PasswordConfirmationedt.getText().toString().trim();
-                String Email = Emailedt.getText().toString().trim();
+                btnPost();
+                 firstName = firstNameedt.getText().toString().trim();
+                 lastName = lastNameedt.getText().toString().trim();
+                 Password = Passwordedt.getText().toString().trim();
+                 PasswordConfirmation = PasswordConfirmationedt.getText().toString().trim();
+                 Email = Emailedt.getText().toString().trim();
+                 phone = phoneedt.getText().toString().trim();
 
                 // check first name is not empty
                 if (TextUtils.isEmpty(firstName)) {
@@ -117,10 +126,10 @@ public class Registration extends AppCompatActivity {
                     return;
                 }
                 // check email is not duplicated
-               if(!isNewEmail(Email)){
+             /*  if(!isNewEmail(Email)){
                    Emailedt.setError(getResources().getString(R.string.AlreadyRegistered));
                    return;
-               }
+               }*/
                 // check password confirmation
                 if (TextUtils.isEmpty(PasswordConfirmation)) {
                     PasswordConfirmationedt.setError(getResources().getString(R.string.RequiredFeild));
@@ -133,8 +142,57 @@ public class Registration extends AppCompatActivity {
                     return;
                 }
 
+            }
+            private void btnPost() {
+                ApiInterface apiInterface = RetrofitPost.getRetrofitInstance().create(ApiInterface.class);
+                Call<Intern> call = apiInterface.getInternInformation(firstName,lastName,Email, Password, phone,
+                        fradio.isChecked());
+                call.enqueue(new Callback<Intern>() {
+                    @Override
+                    public void onResponse(Call<Intern> call, Response<Intern> response) {
+                        Log.e(TAG, "onResponse: "+response.code());
+                        Log.e(TAG, "onResponse: First name:  "+response.body().getFirstName());
+                        Log.e(TAG, "onResponse: Last name:  "+response.body().getLastName());
+                        Log.e(TAG, "onResponse: Email:  "+response.body().getEmail());
+                        Log.e(TAG, "onResponse: Password:  "+response.body().getPassword());
+                        Log.e(TAG, "onResponse: Mobile:  "+response.body().getPhone());
+                        Log.e(TAG, "onResponse: Gender:  "+response.body().getGender());
+                    }
 
-                mAuth.createUserWithEmailAndPassword(Email, Password)
+                    @Override
+                    public void onFailure(Call<Intern> call, Throwable t) {
+                        Log.e(TAG, "onFailure: "+t.getMessage());
+                    }
+                });
+
+
+            }
+
+
+           /* private void btnPost() {
+                ApiInterface apiInterface = RetrofitPost.getRetrofitInstance().create(ApiInterface.class);
+                Call<User> call = apiInterface.getUserInformation(firstName, "Developer");
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        Log.e(TAG, "onResponse: "+response.code());
+                        Log.e(TAG, "onResponse: name:  "+response.body().getName());
+                        Log.e(TAG, "onResponse: id:  "+response.body().getId());
+                        Log.e(TAG, "onResponse: job:  "+response.body().getJob());
+                        Log.e(TAG, "onResponse: createdAt:  "+response.body().getCreatedAt());
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e(TAG, "onFailure: "+t.getMessage());
+
+                    }
+                });
+
+            }*/
+        });
+    }
+              /*  mAuth.createUserWithEmailAndPassword(Email, Password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -193,9 +251,9 @@ public class Registration extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
-    boolean isNew;
+    /*boolean isNew;
     private boolean isNewEmail(String email) {
 
         mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
@@ -215,7 +273,7 @@ public class Registration extends AppCompatActivity {
             }
         });
 return isNew;
-    }
+    }*/
 
 
     private void initCancelButtonClick() {
