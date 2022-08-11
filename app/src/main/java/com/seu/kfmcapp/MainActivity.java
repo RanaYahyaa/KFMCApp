@@ -82,14 +82,15 @@ public class MainActivity extends AppCompatActivity// implements NavigationView.
                         break;
                         //   Toast.makeText(MainActivity.this, "Trash is Clicked",Toast.LENGTH_SHORT).show();break;
                     case R.id.cardIssue:
-                        Toast.makeText(MainActivity.this, "Synch is Clicked", Toast.LENGTH_SHORT).show();
+                        Intent intent1 = new Intent(MainActivity.this, CardIssuance.class);
+                        startActivity(intent1);
                         break;
+
                     case R.id.profile:
                         Toast.makeText(MainActivity.this, "Synch is Clicked", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         return true;
-
                 }
                 return true;
             }

@@ -12,8 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo2"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light"
-        >
+        android:theme="@style/Theme.AppCompat.Light">
+        <activity
+            android:name=".CardIssuance"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/networksecurityconfig" />
@@ -36,7 +39,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-
         <activity
             android:name=".TrainingRequest"
             android:exported="true" />
