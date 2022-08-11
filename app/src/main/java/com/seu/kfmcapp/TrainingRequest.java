@@ -179,7 +179,7 @@ public class TrainingRequest extends AppCompatActivity implements
 
     private ArrayList<Major> getAllMajors() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://90f3-2001-16a2-c081-d45d-e07b-4b1-9ea2-fd28.eu.ngrok.io/api/")
+                .baseUrl("http://537e-2001-16a2-c0cc-933d-245c-8854-cf80-14ca.eu.ngrok.io/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // below line is to create an instance for our retrofit api class.

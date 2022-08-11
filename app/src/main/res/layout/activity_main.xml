@@ -1,51 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--the root view must be the DrawerLayout-->
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/my_drawer_layout"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="HardcodedText">
+    android:background="@color/white"
+    tools:context=".MainActivity" >
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:gravity="center"
-            android:text="@string/Welcome"
-            android:id="@+id/tvJsonItem"
-            android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/btnHit"
-            android:background="@drawable/custom_button"
-            android:backgroundTint="@color/Green"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/menu_applyForTrainingRequest" />
+            android:id="@+id/appbar">
 
-    </LinearLayout>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/kfmc"
+                app:navigationIcon="@drawable/ic_baseline_menu_24"
+                android:background="@color/white"
+                />
 
-    <!--this the navigation view which draws
-        and shows the navigation drawer-->
-    <!--include the menu created in the menu folder-->
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <!--        <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:gravity="center"
+                    android:text="@string/Welcome"
+                    android:id="@+id/tvJsonItem"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/btnHit"
+                    android:background="@drawable/custom_button"
+                    android:backgroundTint="@color/Green"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/menu_applyForTrainingRequest" />-->
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appbar" />
+
+    </RelativeLayout>
+
+
+
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/navigation_menu" />
+        app:menu="@menu/menu"
+        android:visibility="visible"/>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
+
+
+

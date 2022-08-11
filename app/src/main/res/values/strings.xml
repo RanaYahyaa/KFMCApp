@@ -66,4 +66,7 @@
     <string name="menu_TrainingRequests">طلبات التدريب</string>
     <string name="menu_applyForTrainingRequest">تقديم طلب تدريب</string>
     <string name="menu_myTrainingRequestStatus">متابعة طلب التدريب</string>
+    <string name="menu_cardIssue">طلب بطاقة </string>
+    <string name="menu_profile">الملف الشخصي </string>
+    <string name="kfmc">التجمع الطبي الثاني</string>
 </resources>
