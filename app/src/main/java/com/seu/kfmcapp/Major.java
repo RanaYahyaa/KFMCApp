@@ -47,7 +47,6 @@ public class Major {
         this.name = name;
     }
 
-   // public ArrayList<Major> getMajors() {    }
     @Override
     public String toString(){
         return name;
@@ -55,13 +54,4 @@ public class Major {
 
 }
 
-class MajorsResult {
-
-    @SerializedName("majors")
-    private List<Major> majors;
-
-    public List<Major> getMajors() {
-        return majors;
-    }
-}
 

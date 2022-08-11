@@ -178,14 +178,9 @@ public class TrainingRequest extends AppCompatActivity implements
     }
 
     private ArrayList<Major> getAllMajors() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://537e-2001-16a2-c0cc-933d-245c-8854-cf80-14ca.eu.ngrok.io/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        // below line is to create an instance for our retrofit api class.
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = RetrofitBuilder.getRetrofitInstance().create(RetrofitAPI.class);
 
-        // on below line we are calling a method to get all the courses from API.
+        // on below line we are calling a method to get all the majors from API.
         Call<ArrayList<Major>> call = retrofitAPI.getAllMajors();
 
         // on below line we are calling method to enqueue and calling
@@ -193,20 +188,13 @@ public class TrainingRequest extends AppCompatActivity implements
         call.enqueue(new Callback<ArrayList<Major>>() {
             @Override
             public void onResponse(Call<ArrayList<Major>> call, Response<ArrayList<Major>> response) {
-                // inside on response method we are checking
-                // if the response is success or not.
                 if (response.isSuccessful()) {
-
-                    // below line is to add our data from api to our array list.
                     majorsArrayList = response.body();
                     majorsAdapter.notifyDataSetChanged();
-                    // below line we are running a loop to add data to our adapter class.
                     for (int i = 0; i < majorsArrayList.size(); i++) {
                         majorsNames.add(majorsArrayList.get(i).toString());
                     }
-
                 }
-
             }
 
             @Override

@@ -22,9 +22,6 @@
             android:resource="@xml/networksecurityconfig" />
 
         <activity
-            android:name=".list"
-            android:exported="true" />
-        <activity
             android:name=".LogIn"
             android:exported="true">
             <intent-filter>

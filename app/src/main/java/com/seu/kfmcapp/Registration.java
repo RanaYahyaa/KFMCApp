@@ -144,7 +144,7 @@ public class Registration extends AppCompatActivity {
 
             }
             private void btnPost() {
-                RetrofitAPI apiInterface = RetrofitPost.getRetrofitInstance().create(RetrofitAPI.class);
+                RetrofitAPI apiInterface = RetrofitBuilder.getRetrofitInstance().create(RetrofitAPI.class);
                 Call<Intern> call = apiInterface.getInternInformation(firstName,lastName,Email, Password, phone,
                         fradio.isChecked());
                 call.enqueue(new Callback<Intern>() {

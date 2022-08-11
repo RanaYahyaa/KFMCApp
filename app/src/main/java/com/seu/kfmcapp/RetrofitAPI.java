@@ -1,10 +1,6 @@
 package com.seu.kfmcapp;
 
-import static com.seu.kfmcapp.RetrofitPost.retrofit;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.Call;
